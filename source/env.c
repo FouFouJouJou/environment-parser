@@ -19,25 +19,6 @@ void add(char *key, char *value, struct environment_t *env) {
   env->entries[env->size-1]=create_entry(key, value);
 }
 
-void add_key(struct environment_t *env, char c) {
-}
-
-void add_value(struct environment_t *env, char c) {
-}
-
-void process_key(struct environment_t *env, char c) {
-}
-
-void process_value(struct environment_t *env, char c) {
-}
-
-void process_whitespace(struct environment_t *env, char c) {
-}
-
-void process_exit(struct environment_t *env, char c) {
-  exit(2);
-}
-
 void free_entry(struct entry_t *entry) {
   free(entry->key);
   free(entry->value);
