@@ -9,7 +9,9 @@ struct token_t *create_token(char *start, char *end, enum token_type_t type) {
   size_t length=end-start;
   switch(length) {
     case 0:
-      token->literal=calloc(1, sizeof(char));
+      token->literal=0;
+      if(type==TOKEN_EMPTY_Q_STRING)
+        token->length=3;
       token->length=2;
       break;
     default:
