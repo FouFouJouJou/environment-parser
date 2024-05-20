@@ -9,29 +9,15 @@ struct token_t *lex_equals(char *start) {
   return 0;
 }
 
-struct token_t *lex_empty_string(char *start) {
-  struct token_t *token=0;
-  enum token_type_t type=TOKEN_NONE;
-  char *string_before_char="\"'";
-  if(*start == '\n') {
-    if(strchr(string_before_char, *(start-1))) goto out;
-    else type=TOKEN_EMPTY_STRING;
-  }
-  else if(strchr(string_before_char, *start) && *start == *(start+1))
-    type=TOKEN_EMPTY_Q_STRING;
-  if(type != TOKEN_NONE)
-    token=create_token(start, start, type);
-  out:
-    return token;
-}
-
 struct token_t *lex_string(char *start) {
   struct token_t *token=0;
-  char *end=start, *delims="\n=";
-  if(*start == '\n' && *(start-1) != '=')
-    goto out;
+  char *end=start, *delims="\n=", *quotes="\"'";
   end+=strcspn(start, delims);
-  token=create_token(start, end, TOKEN_STRING);
+  if(strchr(quotes, *start) && *start == *(start+1)) 
+    token=create_token(start, end, TOKEN_EMPTY_Q_STRING);
+  else if(*start == '\n' && *(start-1) == '=')
+    token=create_token(start, end, TOKEN_EMPTY_STRING);
+  else token=create_token(start, end, TOKEN_STRING);
   out:
     return token;
 }
@@ -44,7 +30,6 @@ struct token_t **lex(char *buffer, size_t size) {
     start+=strspn(start, "\t\r ");
     struct token_t *token=0;
     if((token=lex_equals(start)));
-    else if((token=lex_empty_string(start)));
     else if((token=lex_string(start)));
     if(!token) exit(1);
     tokens=realloc(tokens, (++total)*sizeof(struct token_t *));

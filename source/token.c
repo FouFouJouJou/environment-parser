@@ -12,17 +12,18 @@ struct token_t *create_token(char *start, char *end, enum token_type_t type) {
       token->literal=0;
       if(type==TOKEN_EMPTY_Q_STRING)
         token->length=3;
-      token->length=2;
+      token->length=1;
       break;
     default:
       token->literal=calloc(length, sizeof(char));
       token->literal=strncpy(token->literal, start, length);
       token->literal[length]='\0';
-      token->length=length+1;
+      if(*token->literal == '"' || *token->literal == '\'')
+      	token->length=length+1;
+      else token->length=length;
       break;
   }
   token->type=type;
-  printf("%s(%ld)\n", token->literal, token->length);
   return token;
 }
 

@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include <io.h>
 
+
 size_t read_from_file(char *file_name, char **buff) {
   FILE *fd=fopen(file_name, "rb");
   fseek(fd, 0L, SEEK_END);
