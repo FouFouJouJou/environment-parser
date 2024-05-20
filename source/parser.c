@@ -54,15 +54,12 @@ struct state_machine_t *create_state_machine() {
   return state_machine;
 }
 
-void parse(char *file_path, struct environment_t *env) {
-  char *buffer=0;
-  size_t bytes_read=read_from_file(file_path, &buffer);
-  struct token_t **tokens=lex(buffer, bytes_read);
+void parse(char *buffer, size_t bytes, struct environment_t *env) {
+  struct token_t **tokens=lex(buffer, bytes);
   struct state_machine_t *state_machine = create_state_machine();
   while(state_machine->current_state != STATE_DONE && state_machine->current_state != STATE_ERROR) {
     state_machine->transitions[state_machine->current_state][(*tokens)->type].action(env,*tokens);
     state_machine->current_state=state_machine->transitions[state_machine->current_state][(*tokens)->type].next_state;
     tokens++;
   }
-  free(buffer);
 }

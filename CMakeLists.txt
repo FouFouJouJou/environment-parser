@@ -13,8 +13,10 @@ add_library(env_parser SHARED
   ${SOURCE_DIRECTORY}/token.c
   ${SOURCE_DIRECTORY}/lexer.c
   ${SOURCE_DIRECTORY}/parser.c
+  ${SOURCE_DIRECTORY}/api.c
 )
 
 target_include_directories(env_parser PRIVATE ${INCLUDE_DIR})
 set_target_properties(env_parser PROPERTIES VERSION ${PROJECT_VERSION} LIBRARY_OUTPUT_DIRECTORY lib)
+set_target_properties(env_parser PROPERTIES PUBLIC_HEADER include/api.h)
 target_link_libraries(${EXECUTABLE} env_parser)
