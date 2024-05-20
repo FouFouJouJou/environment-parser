@@ -5,25 +5,29 @@
 #include <lexer.h>
 
 struct token_t *create_token(char *start, char *end, enum token_type_t type) {
-  struct token_t *token=calloc(1, sizeof(struct token_t*));
+  struct token_t *token=calloc(1, sizeof(struct token_t));
   size_t length=end-start;
+  if(type == TOKEN_EOF) {
+    goto out;
+  }
   switch(length) {
     case 0:
       token->literal=0;
-      if(type==TOKEN_EMPTY_Q_STRING)
+      if(*start=='\'' || *start == '"')
         token->length=3;
-      token->length=1;
+      else token->length=1;
       break;
     default:
       token->literal=calloc(length, sizeof(char));
       token->literal=strncpy(token->literal, start, length);
       token->literal[length]='\0';
-      if(*token->literal == '"' || *token->literal == '\'')
+      if(*token->literal == '"' || *token->literal == '\'' || *(start-1) == '=')
       	token->length=length+1;
       else token->length=length;
       break;
   }
-  token->type=type;
+  out:
+    token->type=type;
   return token;
 }
 
@@ -33,8 +37,6 @@ char *token_type_to_string(enum token_type_t type) {
       return "TOKEN_STRING";
     case TOKEN_EMPTY_STRING:
       return "TOKEN_EMPTY_STRING";
-    case TOKEN_EMPTY_Q_STRING:
-      return "TOKEN_EMPTY_Q_STRING";
     case TOKEN_EQUALS:
       return "TOKEN_EQUALS";
     case TOKEN_EOF:

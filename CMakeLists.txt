@@ -12,6 +12,7 @@ add_library(env_parser SHARED
   ${SOURCE_DIRECTORY}/env.c
   ${SOURCE_DIRECTORY}/token.c
   ${SOURCE_DIRECTORY}/lexer.c
+  ${SOURCE_DIRECTORY}/parser.c
 )
 
 target_include_directories(env_parser PRIVATE ${INCLUDE_DIR})

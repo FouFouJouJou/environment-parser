@@ -12,12 +12,12 @@ struct token_t *lex_equals(char *start) {
 struct token_t *lex_string(char *start) {
   struct token_t *token=0;
   char *end=start, *delims="\n=", *quotes="\"'";
+  if(strchr(quotes, *start) && *start == *(start+1)) {
+    token=create_token(start, start, TOKEN_STRING);
+    goto out;
+  }
   end+=strcspn(start, delims);
-  if(strchr(quotes, *start) && *start == *(start+1)) 
-    token=create_token(start, end, TOKEN_EMPTY_Q_STRING);
-  else if(*start == '\n' && *(start-1) == '=')
-    token=create_token(start, end, TOKEN_EMPTY_STRING);
-  else token=create_token(start, end, TOKEN_STRING);
+  token=create_token(start, end, TOKEN_STRING);
   out:
     return token;
 }
@@ -34,8 +34,9 @@ struct token_t **lex(char *buffer, size_t size) {
     if(!token) exit(1);
     tokens=realloc(tokens, (++total)*sizeof(struct token_t *));
     tokens[total-1]=token;
-    printf_token(*token);
     start+=token->length;
   }
+  tokens=realloc(tokens, (++total)*sizeof(struct token_t *));
+  tokens[total-1]=create_token(0,0, TOKEN_EOF);
   return tokens;
 }

@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include <env.h>
 
 struct environment_t *create_env() {
@@ -19,6 +20,13 @@ void add(char *key, char *value, struct environment_t *env) {
   env->entries[env->size-1]=create_entry(key, value);
 }
 
+char *get(char *key, char *default_value, struct environment_t *env) {
+  for(int i=0; i<env->size ;++i) {
+    if(!strcmp(key, env->entries[i]->key))
+      return env->entries[i]->value;
+  }
+  return default_value;
+}
 void free_entry(struct entry_t *entry) {
   free(entry->key);
   free(entry->value);
