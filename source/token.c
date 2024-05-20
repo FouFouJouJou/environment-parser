@@ -25,3 +25,22 @@ struct token_t *create_token(char *start, char *end, enum token_type_t type) {
   printf("%s(%ld)\n", token->literal, token->length);
   return token;
 }
+
+char *token_type_to_string(enum token_type_t type) {
+  switch(type) {
+    case TOKEN_STRING:
+      return "TOKEN_STRING";
+    case TOKEN_EMPTY_STRING:
+      return "TOKEN_EMPTY_STRING";
+    case TOKEN_EMPTY_Q_STRING:
+      return "TOKEN_EMPTY_Q_STRING";
+    case TOKEN_EQUALS:
+      return "TOKEN_EQUALS";
+    case TOKEN_EOF:
+      return "TOKEN_EOF";
+  }
+}
+
+void printf_token(struct token_t token) {
+  printf("(%s, %s)\n", token.literal, token_type_to_string(token.type));
+}

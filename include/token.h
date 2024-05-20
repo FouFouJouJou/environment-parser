@@ -2,13 +2,13 @@
 #define __TOKEN_H__
 
 enum token_type_t {
-  TOKEN_NONE
-  ,TOKEN_EQUALS
-  ,TOKEN_D_QUOTES
-  ,TOKEN_S_QUOTES
-  ,TOKEN_STRING
-  ,TOKEN_EMPTY_STRING
-  ,TOKEN_EMPTY_Q_STRING
+  TOKEN_STRING=0
+  ,TOKEN_EMPTY_STRING=1
+  ,TOKEN_EMPTY_Q_STRING=2
+  ,TOKEN_EQUALS=3
+  ,TOKEN_EOF=4
+  ,NUM_TOKEN
+  ,TOKEN_NONE
 };
 
 struct token_t {
@@ -18,5 +18,7 @@ struct token_t {
 };
 
 struct token_t *create_token(char *start, char *end, enum token_type_t type);
+
+void printf_token(struct token_t token);
 
 #endif
