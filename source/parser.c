@@ -11,18 +11,15 @@
 void process_key(struct environment_t *env, struct token_t *token) {
   add(0,0, env);
   env->entries[env->size-1]->key=token->literal;
-  printf("%s\n", env->entries[env->size-1]->key);
 }
 void process_value(struct environment_t *env, struct token_t *token) {
   env->entries[env->size-1]->value=token->literal;
 }
 void process_equals(struct environment_t *env, struct token_t *token) {}
 void process_error(struct environment_t *env, struct token_t *token) {
-  printf("error\n");
+  exit(200);
 }
-void process_exit(struct environment_t *env, struct token_t *token) {
-  printf("exit\n");
-}
+void process_exit(struct environment_t *env, struct token_t *token) {}
 
 struct state_machine_t *create_state_machine() {
   struct transition_t transitions[NUM_STATE][NUM_TOKEN] = {
