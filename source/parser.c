@@ -50,28 +50,28 @@ void process_exit(struct environment_t *env, char c) {}
 struct state_machine_t *create_state_machine() {
   struct transition_t transitions[NUM_STATE][NUM_INPUTS] = {
     {
-       {.next_state=STATE_KEY,   .action=add_key}
+      {.next_state=STATE_KEY,   .action=add_key}
       ,{.next_state=STATE_ERROR, .action=process_error}
       ,{.next_state=STATE_ERROR, .action=process_error}
       ,{.next_state=STATE_NONE,  .action=0}
       ,{.next_state=STATE_DONE,  .action=process_exit}
     }
     ,{
-       {.next_state=STATE_KEY,    .action=process_key}
+      {.next_state=STATE_KEY,    .action=process_key}
       ,{.next_state=STATE_KEY,    .action=process_key}
       ,{.next_state=STATE_EQUALS, .action=process_equals}
       ,{.next_state=STATE_VALUE,  .action=add_value}
       ,{.next_state=STATE_DONE,   .action=process_exit}
     }
     ,{
-       {.next_state=STATE_VALUE, .action=process_value}
+      {.next_state=STATE_VALUE, .action=process_value}
       ,{.next_state=STATE_VALUE, .action=process_value}
       ,{.next_state=STATE_VALUE, .action=process_value}
       ,{.next_state=STATE_KEY,   .action=add_key}
       ,{.next_state=STATE_DONE,  .action=process_exit}
     }
     ,{
-       {.next_state=STATE_VALUE, .action=add_value}
+      {.next_state=STATE_VALUE, .action=add_value}
       ,{.next_state=STATE_VALUE, .action=add_value}
       ,{.next_state=STATE_VALUE, .action=add_value}
       ,{.next_state=STATE_EMPTY_VALUE, .action=add_empty_value}
@@ -79,7 +79,7 @@ struct state_machine_t *create_state_machine() {
     }
     ,
     {
-       {.next_state=STATE_KEY, .action=add_key}
+      {.next_state=STATE_KEY, .action=add_key}
       ,{.next_state=STATE_ERROR, .action=process_error}
       ,{.next_state=STATE_ERROR, .action=process_error}
       ,{.next_state=STATE_ERROR, .action=process_error}
@@ -96,9 +96,10 @@ void parse(char *buffer, size_t bytes, struct environment_t *env) {
   struct state_machine_t *state_machine=create_state_machine();
   char *digits="0123456789", *quotes="'\"";
   char *buffer_char=buffer;
-  while(buffer_char != buffer+bytes) {
+  while(state_machine->current_state != STATE_DONE && state_machine->current_state != STATE_ERROR) {
     enum state_input_t input=
 	*buffer_char=='\n' ? INPUT_LINE_FEED
+	: *buffer_char == '\0' ? INPUT_EOF
 	: *buffer_char=='=' ? INPUT_EQUALS
 	: strchr(digits, *buffer_char) ? INPUT_DIGIT
 	: INPUT_CODE_POINT;
