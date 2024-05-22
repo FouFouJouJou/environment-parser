@@ -10,8 +10,6 @@ target_sources(${EXECUTABLE} PUBLIC ${SOURCE_DIRECTORY}/${EXECUTABLE}.c)
 add_library(env_parser SHARED
   ${SOURCE_DIRECTORY}/io.c
   ${SOURCE_DIRECTORY}/env.c
-  ${SOURCE_DIRECTORY}/token.c
-  ${SOURCE_DIRECTORY}/lexer.c
   ${SOURCE_DIRECTORY}/parser.c
   ${SOURCE_DIRECTORY}/api.c
 )
