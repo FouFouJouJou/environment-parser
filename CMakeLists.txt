@@ -7,6 +7,7 @@ add_executable(${EXECUTABLE})
 
 target_include_directories(${EXECUTABLE} PUBLIC ${INCLUDE_DIR})
 target_sources(${EXECUTABLE} PUBLIC ${SOURCE_DIRECTORY}/${EXECUTABLE}.c)
+target_compile_options(${EXECUTABLE} PRIVATE -Wall -Wextra -Wpedantic -Werror -g)
 add_library(env_parser SHARED
   ${SOURCE_DIRECTORY}/io.c
   ${SOURCE_DIRECTORY}/env.c
