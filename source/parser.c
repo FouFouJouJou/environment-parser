@@ -109,6 +109,4 @@ void parse(char *buffer, size_t bytes, struct environment_t *env) {
     state_machine->current_state =state_machine->transitions[state_machine->current_state][input].next_state;
     buffer_char++;
   }
-  for(int i=0; i<env->size; ++i)
-    printf("%s=%s\n", env->entries[i]->key, env->entries[i]->value ? env->entries[i]->value : "empty");
 }

@@ -1,5 +1,5 @@
-#ifndef __ENV_H__ 
-#define __ENV_H__ 
+#ifndef __ENV_H__
+#define __ENV_H__
 
 struct entry_t {
   char *key;
