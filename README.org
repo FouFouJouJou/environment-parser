@@ -5,6 +5,8 @@ This was my first attempt at implementing state machine functionality to parse .
 * State machine
 [[file:state_machine.png]]
 * Requirements
+One build tool that I use constantly is [[https://command-not-found.com/cmake][cmake]]. Make sure that you have an up to date version, even though I do not use cmake to its full capabilities.
+* State 
 * Building
 A build directory is required to dump all the build artifacts into. My personal preference to name the directory as =bin= for the sake of consistency.
 #+begin_src bash
