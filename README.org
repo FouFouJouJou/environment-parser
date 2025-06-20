@@ -32,6 +32,6 @@ A build directory is required to dump all the build artifacts into. My personal 
 - Getting the value associated with the env variable =key=, one needs to define a =default value= in the case the key does not exist or the value is an empty string.
 #+begin_src c
   struct env_t *env = parse_env(file_path);
-  char *value = get(env, "key", "default_key");
+  char *value = get(env, "key", "default_value");
   printf("value: %s\n", value);
 #+end_src
