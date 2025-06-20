@@ -9,7 +9,7 @@ void add_key(struct environment_t *env, char c) {
   env->size++;
   env->entries=realloc(env->entries, env->size*sizeof(struct entry *));
   env->entries[env->size-1]=calloc(1, sizeof(struct entry_t));
-  if(c == '\n') {
+  if (c == '\n') {
     env->entries[env->size-1]->key=calloc(1, sizeof(char));
     env->entries[env->size-1]->key[0]='\0';
   }
@@ -96,14 +96,14 @@ void parse(char *buffer, size_t bytes, struct environment_t *env) {
   struct state_machine_t *state_machine=create_state_machine();
   char *digits="0123456789", *quotes="'\"";
   char *buffer_char=buffer;
-  while(state_machine->current_state != STATE_DONE && state_machine->current_state != STATE_ERROR) {
+  while (state_machine->current_state != STATE_DONE && state_machine->current_state != STATE_ERROR) {
     enum state_input_t input=
 	*buffer_char=='\n' ? INPUT_LINE_FEED
 	: *buffer_char == '\0' ? INPUT_EOF
 	: *buffer_char=='=' ? INPUT_EQUALS
 	: strchr(digits, *buffer_char) ? INPUT_DIGIT
 	: INPUT_CODE_POINT;
-    if(state_machine->transitions[state_machine->current_state][input].action) {
+    if (state_machine->transitions[state_machine->current_state][input].action) {
       state_machine->transitions[state_machine->current_state][input].action(env, *buffer_char);
     }
     state_machine->current_state =state_machine->transitions[state_machine->current_state][input].next_state;

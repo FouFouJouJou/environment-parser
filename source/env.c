@@ -1,10 +1,20 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <parser.h>
+#include <io.h>
 #include <env.h>
 
 struct environment_t *create_env() {
   struct environment_t *env=calloc(1, sizeof(struct environment_t));
   return env;
+}
+
+void parse_env(char *file_path, struct environment_t *env) {
+  char *buffer=0;
+  size_t bytes_read=read_from_file(file_path, &buffer);
+  parse(buffer, bytes_read, env);
+  free(buffer);
 }
 
 struct entry_t *create_entry(char *key, char *value) {
@@ -14,19 +24,17 @@ struct entry_t *create_entry(char *key, char *value) {
   return entry;
 }
 
-void add(char *key, char *value, struct environment_t *env) {
-  env->size++;
-  env->entries=realloc(env->entries, sizeof(struct entry_t*)*env->size);
-  env->entries[env->size-1]=create_entry(key, value);
-}
-
-char *get(char *key, char *default_value, struct environment_t *env) {
-  for(int i=0; i<env->size ;++i) {
-    if(!strcmp(key, env->entries[i]->key))
-      return env->entries[i]->value;
+char *get(struct environment_t *env, char *key, char *default_value) {
+  for (size_t i=0; i<env->size; ++i) {
+    char *env_key = env->entries[i]->key;
+    char *value = env->entries[i]->value;
+    if (!strncmp(key, env_key, strlen(key)) && value != 0) {
+      return value;
+    }
   }
   return default_value;
 }
+
 void free_entry(struct entry_t *entry) {
   free(entry->key);
   free(entry->value);
@@ -34,7 +42,8 @@ void free_entry(struct entry_t *entry) {
 }
 
 void free_env(struct environment_t *env) {
-  for(int i=0; i<env->size; ++i) 
+  for (int i=0; i<env->size; ++i) {
     free(env->entries[i]);
+  }
   free(env->entries);
 }

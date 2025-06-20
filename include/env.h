@@ -12,6 +12,6 @@ struct environment_t {
 };
 
 struct environment_t *create_env();
-void add(char *key, char *value, struct environment_t *env);
-char *get(char *key, char *default_value, struct environment_t *env);
+char *get(struct environment_t *env, char *key, char *default_value);
+void parse_env(char *file_path, struct environment_t *env);
 #endif
