@@ -6,10 +6,10 @@
 
 enum state_t {
   STATE_NONE=0
-  ,STATE_KEY=1
-  ,STATE_VALUE=2
-  ,STATE_EQUALS=3
-  ,STATE_EMPTY_VALUE=4
+  ,STATE_KEY
+  ,STATE_VALUE
+  ,STATE_EQUALS
+  ,STATE_EMPTY_VALUE
   ,NUM_STATE
   ,STATE_DONE
   ,STATE_ERROR
@@ -25,7 +25,7 @@ enum state_input_t {
 };
 
 typedef void (state_machine_action) (
-  struct environment_t *env
+  struct env_t *env
   , char c
 );
 

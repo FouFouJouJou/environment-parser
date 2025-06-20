@@ -6,12 +6,12 @@ struct entry_t {
   char *value;
 };
 
-struct environment_t {
+struct env_t {
   struct entry_t **entries;
   size_t size;
 };
 
-struct environment_t *create_env();
-char *get(struct environment_t *env, char *key, char *default_value);
-void parse_env(char *file_path, struct environment_t *env);
+struct env_t *create_env();
+char *get(struct env_t *env, char *key, char *default_value);
+void parse_env(char *file_path, struct env_t *env);
 #endif

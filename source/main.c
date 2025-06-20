@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
     exit(1);
   }
   char *file_path=*(argv+1);
-  struct environment_t *env=create_env();
+  struct env_t *env=create_env();
   parse_env(file_path, env);
 
   for (size_t i=0; i<env->size; ++i) {

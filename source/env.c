@@ -5,12 +5,12 @@
 #include <io.h>
 #include <env.h>
 
-struct environment_t *create_env() {
-  struct environment_t *env=calloc(1, sizeof(struct environment_t));
+struct env_t *create_env() {
+  struct env_t *env=calloc(1, sizeof(struct env_t));
   return env;
 }
 
-void parse_env(char *file_path, struct environment_t *env) {
+void parse_env(char *file_path, struct env_t *env) {
   char *buffer=0;
   size_t bytes_read=read_from_file(file_path, &buffer);
   parse(buffer, bytes_read, env);
@@ -24,7 +24,7 @@ struct entry_t *create_entry(char *key, char *value) {
   return entry;
 }
 
-char *get(struct environment_t *env, char *key, char *default_value) {
+char *get(struct env_t *env, char *key, char *default_value) {
   for (size_t i=0; i<env->size; ++i) {
     char *env_key = env->entries[i]->key;
     char *value = env->entries[i]->value;
@@ -41,7 +41,7 @@ void free_entry(struct entry_t *entry) {
   free(entry);
 }
 
-void free_env(struct environment_t *env) {
+void free_env(struct env_t *env) {
   for (int i=0; i<env->size; ++i) {
     free(env->entries[i]);
   }
