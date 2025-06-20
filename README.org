@@ -2,8 +2,9 @@
 #+AUTHOR: FouFou
 This was my first attempt at implementing state machine functionality to parse .env files. This is typically something highly needed in high level languages, C already has a built-in API for interracting with environment variables but only those that are inherited from the parent, not ones you can load from an .env file.
 
+* State machine
+[[file:state_machine.png]]
 * Requirements
-One build tool that I use constantly is [[https://command-not-found.com/cmake][cmake]]. Make sure that you have an up to date version, even though I do not use cmake to its full capabilities.
 * Building
 A build directory is required to dump all the build artifacts into. My personal preference to name the directory as =bin= for the sake of consistency.
 #+begin_src bash

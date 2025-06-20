@@ -49,40 +49,40 @@ void process_value(struct env_t *env, char c) {
 struct state_machine_t *create_state_machine() {
   struct transition_t transitions[NUM_STATE][NUM_INPUTS] = {
     {
-      {.next_state=STATE_KEY,   .action=add_key}
+      {.next_state=STATE_KEY,    .action=add_key}
       ,{.next_state=STATE_ERROR, .action=0}
       ,{.next_state=STATE_ERROR, .action=0}
       ,{.next_state=STATE_NONE,  .action=0}
       ,{.next_state=STATE_DONE,  .action=0}
     }
     ,{
-      {.next_state=STATE_KEY,    .action=process_key}
+      {.next_state=STATE_KEY,     .action=process_key}
       ,{.next_state=STATE_KEY,    .action=process_key}
       ,{.next_state=STATE_EQUALS, .action=0}
       ,{.next_state=STATE_VALUE,  .action=add_value}
       ,{.next_state=STATE_DONE,   .action=0}
     }
     ,{
-      {.next_state=STATE_VALUE, .action=process_value}
+      {.next_state=STATE_VALUE,  .action=process_value}
       ,{.next_state=STATE_VALUE, .action=process_value}
       ,{.next_state=STATE_VALUE, .action=process_value}
       ,{.next_state=STATE_KEY,   .action=add_key}
       ,{.next_state=STATE_DONE,  .action=0}
     }
     ,{
-      {.next_state=STATE_VALUE, .action=add_value}
-      ,{.next_state=STATE_VALUE, .action=add_value}
-      ,{.next_state=STATE_VALUE, .action=add_value}
+      {.next_state=STATE_VALUE,        .action=add_value}
+      ,{.next_state=STATE_VALUE,       .action=add_value}
+      ,{.next_state=STATE_VALUE,       .action=add_value}
       ,{.next_state=STATE_EMPTY_VALUE, .action=add_empty_value}
-      ,{.next_state=STATE_ERROR, .action=0}
+      ,{.next_state=STATE_ERROR,       .action=0}
     }
     ,
     {
-      {.next_state=STATE_KEY, .action=add_key}
+      {.next_state=STATE_KEY,    .action=add_key}
       ,{.next_state=STATE_ERROR, .action=0}
       ,{.next_state=STATE_ERROR, .action=0}
       ,{.next_state=STATE_ERROR, .action=0}
-      ,{.next_state=STATE_DONE, .action=0}
+      ,{.next_state=STATE_DONE,  .action=0}
     }
   };
   struct state_machine_t *state_machine=calloc(1, sizeof(struct state_machine_t));
