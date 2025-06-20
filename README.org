@@ -15,13 +15,13 @@ A build directory is required to dump all the build artifacts into. My personal 
 #+end_src
 
 * Documentation
-Any .env file to be loaded must have lines which are all formated =key=value= format. To load an .env file and print its key value pairs.
+- Any .env file to be loaded must have lines which are all formated =key=value= format. To load an .env file and print its key value pairs.
 #+begin_src c
   struct env_t *env = parse_env(file_path);
   printf_env(*env);
 #+end_src
 
-To verify that an env structure has a defined key.
+- To verify that an env structure has a defined key.
 #+begin_src c
   struct env_t *env = parse_env(file_path);
   ssize_t idx = has_key(env, "DB_HOST");
@@ -29,7 +29,7 @@ To verify that an env structure has a defined key.
     printf(":<\n");
   }
 #+end_src
-Getting the value associated with the env variable =key=, one needs to define a =default value= in the case the key does not exist or the value is an empty string.
+- Getting the value associated with the env variable =key=, one needs to define a =default value= in the case the key does not exist or the value is an empty string.
 #+begin_src c
   struct env_t *env = parse_env(file_path);
   char *value = get(env, "key", "default_key");
