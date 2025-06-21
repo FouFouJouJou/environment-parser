@@ -3,6 +3,7 @@
 This was my first attempt at implementing state machine functionality to parse .env files. This is typically something highly needed in high level languages, C already has a built-in API for interracting with environment variables but only those that are inherited from the parent, not ones you can load from an .env file.
 
 * State machine
+The following is a graph demonstrating each state and state transitions that allows the parser to produce the final =env_t= structure.
 [[file:state_machine.png]]
 * Requirements
 One build tool that I use constantly is [[https://command-not-found.com/cmake][cmake]]. Make sure that you have an up to date version, even though I do not use cmake to its full capabilities.
