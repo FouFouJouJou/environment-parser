@@ -16,7 +16,7 @@ A build directory is required to dump all the build artifacts into. My personal 
   make
 #+end_src
 * Documentation
-- Any .env file to be loaded must have lines which are all formated =key=value= format. To load an .env file and print its key value pairs.
+- Any .env file to be loaded must contain lines each formated as =key=value=. To load an .env file and print its key value pairs.
 #+begin_src c
   struct env_t *env = parse_env(file_path);
   printf_env(*env);
@@ -35,4 +35,10 @@ A build directory is required to dump all the build artifacts into. My personal 
   struct env_t *env = parse_env(file_path);
   char *value = get(env, "key", "default_value");
   printf("value: %s\n", value);
+#+end_src
+- Of course, after finishing with the loaded environment.
+#+begin_src c
+  struct env_t *env = parse_env(file_path);
+  // ...
+  free_env(env);
 #+end_src
